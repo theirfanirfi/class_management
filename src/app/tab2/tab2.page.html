@@ -1,7 +1,7 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-title>
-      Tab 2
+      Students
     </ion-title>
   </ion-toolbar>
 </ion-header>
@@ -9,9 +9,38 @@
 <ion-content [fullscreen]="true">
   <ion-header collapse="condense">
     <ion-toolbar>
-      <ion-title size="large">Tab 2</ion-title>
+      <ion-title size="large">Students</ion-title>
     </ion-toolbar>
   </ion-header>
 
-  <app-explore-container name="Tab 2 page"></app-explore-container>
+  <ion-content>
+    <ion-refresher slot="fixed" (ionRefresh)="refreshStudents($event)">
+      <ion-refresher-content
+        pullingText="Pull to refresh"
+        refreshingSpinner="circles"
+        refreshingText="Refreshing...">
+      </ion-refresher-content>
+    </ion-refresher>
+  
+    <ion-list>
+      @for (student of students; track student){
+      <ion-item button (click)="openStudent(student)">
+        <ion-card>
+          <ion-card-header>
+            <ion-card-title>{{ student.student_name }}</ion-card-title>
+          </ion-card-header>
+          <ion-card-content>
+            <p><strong>Class: </strong> {{ student.classes.class_title }}</p>
+          </ion-card-content>
+        </ion-card>
+      </ion-item>
+    }
+    </ion-list>
+  </ion-content>
+
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button (click)="openStudentModal()">
+      <ion-icon name="add" color="white"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
 </ion-content>

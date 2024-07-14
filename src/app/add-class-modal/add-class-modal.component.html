@@ -1,0 +1,37 @@
+<!-- src/app/components/add-class-modal/add-class-modal.component.html -->
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Add Class</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="close()">Close</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <ion-item>
+      <ion-label position="floating">Class Title</ion-label>
+      <ion-input type="text" class="form-control" (ionInput)="dealChange($event, 'title')" placeholder="Type....."></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Class Description</ion-label>
+      <ion-textarea type="text" (ionInput)="dealChange($event, 'description')" class="form-control" placeholder="Type....." ></ion-textarea>
+
+    </ion-item>
+
+    <ion-item>
+      <ion-datetime-button datetime="datetime"></ion-datetime-button>
+      <ion-modal [keepContentsMounted]="true">
+        <ng-template>
+          <ion-datetime (ionChange)="dealChange($event, 'datetime')" id="datetime"></ion-datetime>
+        </ng-template>
+      </ion-modal>
+      
+      
+    </ion-item>
+
+    <ion-footer>
+      <ion-button (click)="save()" expand="block" type="submit">Save</ion-button>
+    </ion-footer>
+</ion-content>

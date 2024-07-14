@@ -1,0 +1,32 @@
+<!-- src/app/components/add-class-modal/add-class-modal.component.html -->
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Add Student</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="close()">Close</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <ion-item>
+      <ion-label position="floating">Student Name</ion-label>
+      <ion-input type="text" class="form-control" (ionInput)="dealChange($event, 'name')" placeholder="Type....."></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-picker (ionChange)="dealChange($event, 'class')">
+      <ion-label position="floating">Class</ion-label>
+
+        <ion-picker-column value="Select Class">
+          @for(class of classes; track class){
+          <ion-picker-column-option value="{{class.id}}">{{class.class_title}}</ion-picker-column-option>
+        }
+        </ion-picker-column>
+      </ion-picker>
+    </ion-item>
+
+    <ion-footer>
+      <ion-button (click)="save()" expand="block" type="submit">Save</ion-button>
+    </ion-footer>
+</ion-content>
