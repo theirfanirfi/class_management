@@ -1,6 +1,9 @@
 // src/app/services/supabase.service.ts
 import { Injectable } from '@angular/core';
 import { createClient, SupabaseClient } from '@supabase/supabase-js';
+import ClassType from '../types/ClassType';
+import Student from '../types/Student';
+import Assignment from '../types/Assignment';
 
 @Injectable({
   providedIn: 'root',
@@ -14,7 +17,8 @@ export class SupabaseService {
   }
 
   async getClasses() {
-    const { data, error } = await this.supabase.from('classes').select()
+    let teacher_id = 1;
+    const { data, error } = await this.supabase.from('classes').select().eq('teacher_id',teacher_id)
     if (error) {
       console.error('Error fetching classes:', error);
       return [];
@@ -25,7 +29,10 @@ export class SupabaseService {
     return data;
   }
 
-  async addClass(newClass: { class_title: string; class_description: string, time: string }) {
+  async addClass(newClass: ClassType) {
+    let teacher_id = 1;
+    // newClass['teacher_id'] = teacher_id;
+
     const { data, error } = await this.supabase.from('classes').insert([newClass]).select();
     if (error) {
       console.error('Error adding class:', error);
@@ -47,10 +54,33 @@ export class SupabaseService {
     return data;
   }
 
-  async addStudent(newStudent: { student_name: string; class_id: Number }) {
+  async addStudent(newStudent: Student) {
     const { data, error } = await this.supabase.from('students').insert([newStudent]).select();
     if (error) {
       console.error('Error adding student:', error);
+      return null;
+    }
+    return data;
+  }
+
+
+  async getAssignments() {
+    let teacher_id = 1
+    const { data, error } = await this.supabase.from('assignments').select('id, assignment_title, classes(class_title)').eq('teacher_id', teacher_id)
+    if (error) {
+      console.error('Error fetching assignments:', error);
+      return [];
+    }
+
+    console.log('data', data);
+    console.log('error', error);
+    return data;
+  }
+
+  async addAssignment(newAssignment: Assignment) {
+    const { data, error } = await this.supabase.from('assignments').insert([newAssignment]).select();
+    if (error) {
+      console.error('Error adding assignment:', error);
       return null;
     }
     return data;

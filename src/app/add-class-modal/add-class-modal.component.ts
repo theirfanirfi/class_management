@@ -7,6 +7,7 @@ IonList, IonRefresher, IonRefresherContent, IonButton, IonFooter, IonInput, IonB
 IonDatetimeButton, IonDatetime, IonModal, IonTextarea } from '@ionic/angular/standalone';
 import {FormsModule, FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { SupabaseService } from '../services/supabase.service';
+import ClassType from '../types/ClassType';
 
 @Component({
   selector: 'app-add-class-modal',
@@ -57,7 +58,8 @@ export class AddClassModalComponent {
 
   async save() {
     console.log('clicked');
-    let isSaved = await this.supabase.addClass({class_title: this.class_title, class_description: this.class_description, time: this.class_time})
+    let teacher_id = 1;
+    let isSaved = await this.supabase.addClass({class_title: this.class_title, class_description: this.class_description, time: this.class_time, teacher_id: teacher_id})
     console.log(isSaved)
     if (isSaved != null) {
       this.class_title = ''

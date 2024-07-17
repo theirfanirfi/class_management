@@ -56,7 +56,8 @@ export class AddStudentModalComponent implements OnInit{
 
   async save() {
     console.log('clicked');
-    let isSaved = await this.supabase.addStudent({student_name: this.student_name, class_id: parseInt(this.class_id)})
+    let teacher_id = 1;
+    let isSaved = await this.supabase.addStudent({student_name: this.student_name, class_id: parseInt(this.class_id), teacher_id: teacher_id})
     console.log(isSaved)
     if (isSaved != null) {
       this.student_name = ''

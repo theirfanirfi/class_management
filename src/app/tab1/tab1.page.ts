@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
+
 import { IonHeader, IonToolbar, IonTitle, IonContent, IonFab, IonFabButton, IonIcon,
   IonLabel, IonCard, IonCardContent, IonCardHeader, IonCardTitle, IonItem,
 IonList, IonRefresher, IonRefresherContent } from '@ionic/angular/standalone';
+
 import { ExploreContainerComponent } from '../explore-container/explore-container.component';
 import { SupabaseService } from '../services/supabase.service';
 import { AddClassModalComponent } from '../add-class-modal/add-class-modal.component';

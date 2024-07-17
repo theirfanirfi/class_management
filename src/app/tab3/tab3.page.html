@@ -13,5 +13,36 @@
     </ion-toolbar>
   </ion-header>
 
-  <app-explore-container name="Assignments page"></app-explore-container>
+  <ion-content>
+    <ion-refresher slot="fixed" (ionRefresh)="refreshAssignments($event)">
+      <ion-refresher-content
+        pullingText="Pull to refresh"
+        refreshingSpinner="circles"
+        refreshingText="Refreshing...">
+      </ion-refresher-content>
+    </ion-refresher>
+  
+    <ion-list>
+      @for (assignment of assignments; track assignment){
+      <ion-item button (click)="openAssignment(assignment)">
+        <ion-card>
+          <ion-card-header>
+            <ion-card-title>{{ assignment.assignment_title }}</ion-card-title>
+          </ion-card-header>
+          <ion-card-content>
+            <p>{{ assignment.assignment_description }}</p>
+            <p><strong>Start Time:</strong> {{ assignment.start_time }}</p>
+            <p><strong>End Time:</strong> {{ assignment.end_time }}</p>
+          </ion-card-content>
+        </ion-card>
+      </ion-item>
+    }
+    </ion-list>
+  </ion-content>
+
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button (click)="openAddAssignmentModal()">
+      <ion-icon name="add" color="white"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
 </ion-content>
