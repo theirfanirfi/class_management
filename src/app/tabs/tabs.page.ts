@@ -1,7 +1,8 @@
 import { Component, EnvironmentInjector, inject } from '@angular/core';
+import { Router } from '@angular/router';
 import { IonTabs, IonTabBar, IonTabButton, IonIcon, IonLabel } from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
-import { triangle, ellipse, square, bookOutline, peopleCircleOutline, readerOutline} from 'ionicons/icons';
+import { triangle, ellipse, square, bookOutline, peopleCircleOutline, readerOutline, logOutOutline} from 'ionicons/icons';
 
 @Component({
   selector: 'app-tabs',
@@ -13,7 +14,12 @@ import { triangle, ellipse, square, bookOutline, peopleCircleOutline, readerOutl
 export class TabsPage {
   public environmentInjector = inject(EnvironmentInjector);
 
-  constructor() {
-    addIcons({ bookOutline, peopleCircleOutline, readerOutline });
+  constructor(private router: Router) {
+    addIcons({ bookOutline, peopleCircleOutline, readerOutline, logOutOutline });
+  }
+
+  logout(){
+    localStorage.removeItem('user');
+    this.router.navigate(['/login']);
   }
 }

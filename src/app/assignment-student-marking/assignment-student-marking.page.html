@@ -12,7 +12,7 @@
   </ion-header>
 
   <ion-content>
-    <ion-refresher slot="fixed">
+    <ion-refresher slot="fixed" (ionRefresh)="refreshMarks($event)">
       <ion-refresher-content
         pullingIcon="chevron-down-circle-outline"
         pullingText="Pull to refresh"

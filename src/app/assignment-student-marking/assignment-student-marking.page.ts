@@ -26,7 +26,8 @@ export class AssignmentStudentMarkingPage implements OnInit {
   dirtyArrayInsert:any = []
   constructor(private route: ActivatedRoute, private supabase: SupabaseService) { }
 
-  async ngOnInit() {
+  fetchStudents = async () => {
+    this.students = [];
     console.log(this.route.snapshot.params['id'])
      this.assignment = await this.supabase.getAssignment(Number(this.route.snapshot.params['id']))
      this.assignment = this.assignment[0]
@@ -53,6 +54,9 @@ export class AssignmentStudentMarkingPage implements OnInit {
       })
      }
     }
+  }
+  async ngOnInit() {
+    this.fetchStudents();
   }
 
   changeStudentMarks(event: any, student:any){
@@ -86,35 +90,51 @@ export class AssignmentStudentMarkingPage implements OnInit {
   }
 
   async saveChanges(){
+    let student_with_out_ids
+    console.log(this.dirtyArray)
     alert('Please wait, marks are being saved. You will be notified when the changes are saved. Stay on the page');
     let dirtyArrayInsert = [];
-    let dirtyArrayUpdate = [];
+    // let dirtyArrayUpdate = [];
     for(let std of this.dirtyArray){
       if(std.id == null){
         delete std['id']
-        dirtyArrayInsert.push(std);
-      }else {
-        dirtyArrayUpdate.push(std);
       }
+
+      dirtyArrayInsert.push(std);
+
+      
+      // else {
+      //   dirtyArrayUpdate.push(std);
+      // }
     }
     let dataInsert:any = 0;
     let dataUpdate:any = 0;
 
+    // if(dirtyArrayInsert.length > 0) {
+    //   console.log("dirtyArrayInsert", dirtyArrayInsert);
+    // dataInsert = await this.supabase.assignmentMassInsert(dirtyArrayInsert)
+
+    // }
     if(dirtyArrayInsert.length > 0) {
-    dataInsert = await this.supabase.assignmentMassInsert(dirtyArrayInsert)
+      // console.log("dirtyArrayUpdate", dirtyArrayUpdate);
+      dataUpdate = await this.supabase.assignmentMassUpdate(dirtyArrayInsert)
 
     }
-    if(dirtyArrayUpdate.length > 0) {
-      dataUpdate = await this.supabase.assignmentMassUpdate(dirtyArrayUpdate)
-
-    }
-
+    
     this.dirtyArray = []
-
+    dirtyArrayInsert = []
+    // dirtyArrayUpdate = []
+console.log("dirtyArray", this.dirtyArray);
 
     alert('Changes saved successfully');
+    this.fetchStudents();
 
     
+  }
+
+  async refreshMarks(event: any) {
+    await this.ngOnInit()
+    event.target.complete();
   }
 
 }

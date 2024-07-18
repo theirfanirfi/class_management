@@ -184,7 +184,7 @@ export class SupabaseService {
   }
 
   async assignmentMassUpdate(mass_student_marks: any){
-    const { data, error } = await this.supabase.from('marks').update(mass_student_marks).select();
+    const { data, error } = await this.supabase.from('marks').upsert(mass_student_marks).select();
     if (error) {
       console.error('Error updating marks:', error);
       return null;
