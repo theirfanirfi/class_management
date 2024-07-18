@@ -32,7 +32,8 @@
             <ion-input
               type="number"
               placeholder="Enter Marks"
-              
+              [value]="student.marks"
+              (ionChange)="changeStudentMarks($event, student)"
             ></ion-input>
           </ion-item>
         </ion-card-content>
@@ -43,7 +44,7 @@
   </ion-content>
 
   <ion-fab *ngIf="showButton" vertical="bottom" horizontal="end" slot="fixed">
-    <ion-fab-button>
+    <ion-fab-button (click)="saveChanges()">
       Save
     </ion-fab-button>
   </ion-fab>

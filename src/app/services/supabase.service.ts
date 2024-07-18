@@ -172,4 +172,32 @@ export class SupabaseService {
     }
     return data;
   }
+
+  async getStudentMarkDetailsForAssignment(assignment_id: any, student_id: any){
+    const { data, error } = await this.supabase.from('marks').select().eq('assignment_id', assignment_id).eq('student_id', student_id);
+    
+    if (error) {
+      console.error('Error adding assignment:', error);
+      return null;
+    }
+    return data.length > 0 ? data[0]: null;
+  }
+
+  async assignmentMassUpdate(mass_student_marks: any){
+    const { data, error } = await this.supabase.from('marks').update(mass_student_marks).select();
+    if (error) {
+      console.error('Error updating marks:', error);
+      return null;
+    }
+    return data;
+  }
+
+  async assignmentMassInsert(mass_student_marks: any){
+    const { data, error } = await this.supabase.from('marks').insert(mass_student_marks).select();
+    if (error) {
+      console.error('Error assigning marks:', error);
+      return null;
+    }
+    return data;
+  }
 }
