@@ -1,0 +1,57 @@
+<!-- src/app/components/add-class-modal/add-class-modal.component.html -->
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Add Student</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="close()">Close</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <ion-item>
+      <ion-label position="floating">Assignment Title</ion-label>
+      <ion-input type="text" class="form-control" (ionInput)="dealChange($event, 'title')" placeholder="Type....."></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Assignment Description</ion-label>
+      <ion-textarea type="text" class="form-control" (ionInput)="dealChange($event, 'description')" placeholder="Type....."></ion-textarea>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="fixed">Start Time</ion-label>
+      <ion-datetime-button datetime="datetime"></ion-datetime-button>
+      <ion-modal [keepContentsMounted]="true">
+        <ng-template>
+          <ion-datetime (ionChange)="dealChange($event, 'start_time')" id="datetime"></ion-datetime>
+        </ng-template>
+      </ion-modal>
+    </ion-item>
+
+      <ion-item>
+      <ion-label position="fixed">End Time</ion-label>
+        <ion-datetime-button datetime="enddatetime"></ion-datetime-button>
+        <ion-modal [keepContentsMounted]="true">
+          <ng-template>
+            <ion-datetime (ionChange)="dealChange($event, 'end_time')" id="enddatetime"></ion-datetime>
+          </ng-template>
+        </ion-modal>
+      </ion-item>
+
+    <ion-item>
+      <ion-label position="center">Class</ion-label>
+      <ion-picker (ionChange)="dealChange($event, 'class')">
+
+        <ion-picker-column value="Select Class">
+          @for(class of classes; track class){
+          <ion-picker-column-option value="{{class.id}}">{{class.class_title}}</ion-picker-column-option>
+        }
+        </ion-picker-column>
+      </ion-picker>
+    </ion-item>
+
+    <ion-footer>
+      <ion-button (click)="save()" expand="block" type="submit">Save</ion-button>
+    </ion-footer>
+</ion-content>

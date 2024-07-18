@@ -1,0 +1,50 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>{{assignment?.assignment_title}}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">{{assignment?.assignment_title}}</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <ion-content>
+    <ion-refresher slot="fixed">
+      <ion-refresher-content
+        pullingIcon="chevron-down-circle-outline"
+        pullingText="Pull to refresh"
+        refreshingSpinner="circles"
+        refreshingText="Refreshing...">
+      </ion-refresher-content>
+    </ion-refresher>
+  
+    <ion-list>
+      @for(student of students; track student){
+      <ion-card>
+        <ion-card-header>
+          <ion-card-title>{{ student.student_name }}</ion-card-title>
+        </ion-card-header>
+        <ion-card-content>
+          <ion-item>
+            <ion-input
+              type="number"
+              placeholder="Enter Marks"
+              
+            ></ion-input>
+          </ion-item>
+        </ion-card-content>
+      </ion-card>
+    }
+    </ion-list>
+
+  </ion-content>
+
+  <ion-fab *ngIf="showButton" vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button>
+      Save
+    </ion-fab-button>
+  </ion-fab>
+</ion-content>

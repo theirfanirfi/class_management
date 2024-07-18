@@ -1,7 +1,7 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-title>
-      Assignments
+      Students
     </ion-title>
   </ion-toolbar>
 </ion-header>
@@ -9,12 +9,12 @@
 <ion-content [fullscreen]="true">
   <ion-header collapse="condense">
     <ion-toolbar>
-      <ion-title size="large">Assignments</ion-title>
+      <ion-title size="large">Students</ion-title>
     </ion-toolbar>
   </ion-header>
 
   <ion-content>
-    <ion-refresher slot="fixed" (ionRefresh)="refreshAssignments($event)">
+    <ion-refresher slot="fixed" (ionRefresh)="refreshStudents($event)">
       <ion-refresher-content
         pullingText="Pull to refresh"
         refreshingSpinner="circles"
@@ -23,29 +23,23 @@
     </ion-refresher>
   
     <ion-list>
-      @for (assignment of assignments; track assignment){
-      <ion-item button (click)="openAssignment(assignment)">
+      @for (student of students; track student){
+      <ion-item button (click)="openStudent(student)">
         <ion-card>
           <ion-card-header>
-            <ion-card-title>{{ assignment.assignment_title }}</ion-card-title>
+            <ion-card-title>{{ student.student_name }}</ion-card-title>
           </ion-card-header>
           <ion-card-content>
-            <p>{{ assignment.assignment_description }}</p>
-            <p><strong>Start Time:</strong> {{ assignment.start_time }}</p>
-            <p><strong>End Time:</strong> {{ assignment.end_time }}</p>
+            <p><strong>Class: </strong> {{ class.class_title }}</p>
           </ion-card-content>
-
-            <ion-button (click)="deleteAssignment(assignment)" fill="clear">Delete</ion-button>
         </ion-card>
-
-
       </ion-item>
     }
     </ion-list>
   </ion-content>
 
   <ion-fab vertical="bottom" horizontal="end" slot="fixed">
-    <ion-fab-button (click)="openAddAssignmentModal()">
+    <ion-fab-button (click)="openStudentModal()">
       <ion-icon name="add" color="white"></ion-icon>
     </ion-fab-button>
   </ion-fab>

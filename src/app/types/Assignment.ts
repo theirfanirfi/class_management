@@ -1,4 +1,5 @@
 interface Assignment {
+    id?: Number,
     assignment_title: string
     assignment_description: string
     start_time: string

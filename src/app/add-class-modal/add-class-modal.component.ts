@@ -5,9 +5,8 @@ import {IonHeader, IonToolbar, IonTitle, IonContent, IonFab, IonFabButton, IonIc
   IonLabel, IonCard, IonCardContent, IonCardHeader, IonCardTitle, IonItem,
 IonList, IonRefresher, IonRefresherContent, IonButton, IonFooter, IonInput, IonButtons,
 IonDatetimeButton, IonDatetime, IonModal, IonTextarea } from '@ionic/angular/standalone';
-import {FormsModule, FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
+import {FormsModule, FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { SupabaseService } from '../services/supabase.service';
-import ClassType from '../types/ClassType';
 
 @Component({
   selector: 'app-add-class-modal',

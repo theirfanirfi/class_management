@@ -1,0 +1,28 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Register</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="login-container">
+    <ion-card>
+      <ion-card-content>
+        <ion-item>
+          <ion-label position="floating">Full Name</ion-label>
+          <ion-input [(ngModel)]="teacher_name"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="floating">Email</ion-label>
+          <ion-input [(ngModel)]="email"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="floating">Password</ion-label>
+          <ion-input [(ngModel)]="password" type="password"></ion-input>
+        </ion-item>
+        <ion-button expand="full" (click)="signup()">SignUp</ion-button>
+        <ion-button expand="full" fill="clear" (click)="gotoLoginPage()">Have an account? Login</ion-button>
+      </ion-card-content>
+    </ion-card>
+  </div>
+</ion-content>

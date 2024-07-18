@@ -1,0 +1,26 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>Class: {{class_title}}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">Class: {{class_title}}</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+
+  <ion-card button (click)="openStudents(class)" >
+    <ion-card-content>
+      Students
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card button (click)="openAssignments(class)">
+    <ion-card-content>
+      Assignments
+    </ion-card-content>
+  </ion-card>
+</ion-content>

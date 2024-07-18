@@ -8,6 +8,8 @@ IonList, IonRefresher, IonRefresherContent } from '@ionic/angular/standalone';
 import { ExploreContainerComponent } from '../explore-container/explore-container.component';
 import { SupabaseService } from '../services/supabase.service';
 import { AddClassModalComponent } from '../add-class-modal/add-class-modal.component';
+import { Router } from '@angular/router';
+
 
 
 @Component({
@@ -24,7 +26,9 @@ import { AddClassModalComponent } from '../add-class-modal/add-class-modal.compo
 export class Tab1Page implements OnInit {
   classes: any[] = [];
 
-  constructor(private supabaseService: SupabaseService, private modalController: ModalController) {}
+  constructor(private supabaseService: SupabaseService, 
+    private modalController: ModalController,
+  private router: Router) {}
 
 
   navigateToAddToClassPage (){
@@ -56,7 +60,7 @@ export class Tab1Page implements OnInit {
   }
 
   openClass(class_s: any){
-    console.log(class_s);
+    this.router.navigate(['/tabs/classes', class_s.id]);
   }
 
 

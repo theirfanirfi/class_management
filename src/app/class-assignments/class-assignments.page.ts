@@ -9,13 +9,13 @@ import { ExploreContainerComponent } from '../explore-container/explore-containe
 import { SupabaseService } from '../services/supabase.service';
 import { AddAssignmentModalComponent } from '../add-assignment-modal/add-assignment-modal.component';
 import Assignment from '../types/Assignment';
-import { Router } from '@angular/router';
+import {ActivatedRoute, Router } from '@angular/router';
 
 
 @Component({
   selector: 'app-tab3',
-  templateUrl: 'tab3.page.html',
-  styleUrls: ['tab3.page.scss'],
+  templateUrl: '../tab3/tab3.page.html',
+  styleUrls: ['../tab3/tab3.page.scss'],
   standalone: true,
   providers: [ModalController],
   imports: [IonHeader, IonToolbar, IonTitle, IonContent,
@@ -23,24 +23,31 @@ import { Router } from '@angular/router';
     IonCardContent,IonCardHeader,IonCardTitle, IonItem, IonList, IonRefresher,
      IonRefresherContent, IonButton ],
 })
-export class Tab3Page implements OnInit {
-  assignments: any[] = [];
-
+export class ClassAssignmentsPage implements OnInit {
+  assignments: any = '';
+  class: any = '';
+  class_title = '';
   constructor(private supabaseService: SupabaseService, 
     private modalController: ModalController,
-  private router: Router) {}
-
-
-  navigateToViewAssignment (){
-  }
+  private router: Router, private route: ActivatedRoute) {}
 
   async ngOnInit() {
-    this.assignments = await this.supabaseService.getAssignments();
-    console.log('assignments',this.assignments)
+    let params = this.route.snapshot.params
+    let class_id = params['id']
+    this.class = await this.supabaseService.getClassById(class_id)
+    this.assignments = await this.supabaseService.getAssignmentsByClass(class_id)
+    if(this.class){
+      this.class = this.class[0];
+      this.class_title = this.class.class_title
+    }
+
+    console.log(this.assignments);
+
+
   }
 
   async refreshAssignments(event: any) {
-    this.assignments = await this.supabaseService.getAssignments();
+    this.assignments = await this.supabaseService.getAssignmentsByClass(this.class.id);
     event.target.complete();
   }
 
@@ -52,7 +59,7 @@ export class Tab3Page implements OnInit {
     modal.onDidDismiss().then(async (result) => {
       if (result.data) {
         // await this.supabaseService.addAssignment(result.data);
-        this.assignments = await this.supabaseService.getAssignments();
+        this.assignments = await this.supabaseService.getAssignmentsByClass(this.class.id);
       }
     });
 
@@ -66,11 +73,9 @@ export class Tab3Page implements OnInit {
   async deleteAssignment(assignment: Assignment){
     let isDeleted = await this.supabaseService.deleteAssignment(assignment)
     if(isDeleted){
-      this.assignments = await this.supabaseService.getAssignments();
+      this.assignments = await this.supabaseService.getAssignmentsByClass(this.class.id);
 
     }
   }
 
-
 }
-
