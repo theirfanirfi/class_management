@@ -59,7 +59,8 @@ export class SupabaseService {
 
 
   async getStudents() {
-    const { data, error } = await this.supabase.from('students').select('id, student_name, classes(class_title)')
+    let teacher_id = this.authService.getUserId();
+    const { data, error } = await this.supabase.from('students').select('id, student_name, classes(class_title)').eq('teacher_id', teacher_id);
     if (error) {
       console.error('Error fetching students:', error);
       return [];
