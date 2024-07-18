@@ -4,12 +4,14 @@ import { createClient, SupabaseClient } from '@supabase/supabase-js';
 import ClassType from '../types/ClassType';
 import Student from '../types/Student';
 import Assignment from '../types/Assignment';
+import { AuthService } from '../auth.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class SupabaseService {
   protected supabase: SupabaseClient;
+  public authService = new AuthService();
 
   constructor() {
     this.supabase = createClient('https://zogppbiqylqtyednzdlr.supabase.co', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InpvZ3BwYmlxeWxxdHllZG56ZGxyIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MjA3MDc1OTMsImV4cCI6MjAzNjI4MzU5M30.j31SEv0PmVz2apAv5Qdy6aML_AELC93lkdcbYmFbH_M');
@@ -17,7 +19,8 @@ export class SupabaseService {
   }
 
   async getClasses() {
-    let teacher_id = 1;
+    let teacher_id = this.authService.getUserId()
+    console.log('teacher_id', teacher_id)
     const { data, error } = await this.supabase.from('classes').select().eq('teacher_id',teacher_id)
     if (error) {
       console.error('Error fetching classes:', error);
@@ -30,7 +33,7 @@ export class SupabaseService {
   }
 
   async getClassById(class_id: any) {
-    let teacher_id = 1;
+    // let teacher_id = this.authService.getUserId()
     const { data, error } = await this.supabase.from('classes').select().eq('id',class_id)
     if (error) {
       console.error('Error fetching classes:', error);
@@ -105,7 +108,7 @@ export class SupabaseService {
 
 
   async getAssignments() {
-    let teacher_id = 1
+    let teacher_id = this.authService.getUserId()
     const { data, error } = await this.supabase.from('assignments').select('id, assignment_title, assignment_description, start_time, end_time, classes(class_title)').eq('teacher_id', teacher_id)
     if (error) {
       console.error('Error fetching assignments:', error);
@@ -118,7 +121,7 @@ export class SupabaseService {
   }
 
   async getAssignmentsByClass(class_id: any) {
-    let teacher_id = 1
+    let teacher_id = this.authService.getUserId()
     const { data, error } = await this.supabase.from('assignments').select('id, assignment_title, assignment_description, start_time, end_time, classes(class_title)').eq('teacher_id', teacher_id).eq('class_id', class_id)
     if (error) {
       console.error('Error fetching assignments:', error);

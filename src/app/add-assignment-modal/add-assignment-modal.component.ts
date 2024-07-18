@@ -68,7 +68,7 @@ export class AddAssignmentModalComponent implements OnInit{
 
   async save() {
     console.log('clicked');
-    let teacher_id = 1;
+    let teacher_id = this.supabase.authService.getUserId();
 
     let isSaved = await this.supabase.addAssignment({assignment_title: this.assignment_title, 
       assignment_description: this.assignment_description, 

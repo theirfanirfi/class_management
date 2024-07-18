@@ -57,7 +57,7 @@ export class AddClassModalComponent {
 
   async save() {
     console.log('clicked');
-    let teacher_id = 1;
+    let teacher_id = this.supabase.authService.getUserId();
     let isSaved = await this.supabase.addClass({class_title: this.class_title, class_description: this.class_description, time: this.class_time, teacher_id: teacher_id})
     console.log(isSaved)
     if (isSaved != null) {

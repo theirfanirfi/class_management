@@ -4,7 +4,9 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class AuthService {
-  constructor() { }
+  
+  constructor() {
+   }
 
   storeUser(obj: any): boolean {
       localStorage.setItem('user', JSON.stringify(obj));
@@ -12,8 +14,15 @@ export class AuthService {
     
   }
 
-  getUser() {
-    return localStorage.getItem('user')
+   getUser() {
+    let user = localStorage.getItem('user')
+    return JSON.parse(user!);
+
+  }
+
+  getUserId(){
+    let user = this.getUser();
+    return user.id;
   }
 
   logout() {
